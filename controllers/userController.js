@@ -112,7 +112,7 @@ export const getUserById=(req,res)=>{
 export const addOrder=async (req,res)=>{
 
      const order={
-    'order_id':generate.uuid(),
+    'order_id':generate.uuid()%2147483646,
     'user_id':req.body.user_id,
      'source' :req.body.source,
      'destination':req.body.destination,
@@ -123,9 +123,10 @@ export const addOrder=async (req,res)=>{
      'order_date':moment(new Date()).format('YYYY-MM-DD'),
      'expected_date':moment(new Date()).format('YYYY-MM-DD'),
      'current_hub':req.body.source,
-     "vehicle_id":0
+     "vehicle_id":1001
      }
-
+     console.log("hi");
+    console.log(order);
      db.query('insert into orders set ?',[order],(err,result,fields)=>{
          if(err)
          res.status(500).json({error:{
